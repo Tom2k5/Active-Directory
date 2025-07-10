@@ -105,3 +105,86 @@ User Configuration
 gpupdate /force
 ```
 
+---
+# Câu 5
+Phân quyền sao cho chỉ các trưởng phòng có quyền chỉnh sửa GPO ở câu trên; những nhân viên phòng thứ nhất được quyền áp dụng chính sách, nhân viên phòng thứ hai chỉ có quyền xem chính sách đó.
+
+- Add các user vào Scope:
+
+![](Pasted%20image%2020250710185133.png)
+
+- Vào Delegation -> Advanced:
+
+| Tài khoản | Read | Apply Group Policy | Edit Settings |
+| --------- | ---- | ------------------ | ------------- |
+| TP_QT     | ✅    | ❌                  | ✅             |
+| TP_NC     | ✅    | ❌                  | ✅             |
+| HTQT1     | ✅    | ✅                  | ❌             |
+| HTQT2     | ✅    | ✅                  | ❌             |
+| NCUD1     | ✅    | ❌                  | ❌             |
+| NCUD2     | ✅    | ❌                  | ❌             |
+![](Pasted%20image%2020250710192746.png)
+
+![](Pasted%20image%2020250710192818.png)
+
+- **Result:**
+
+![](Pasted%20image%2020250710192925.png)
+
+
+```ad-note
+- Edit Settings = Read + Write GPO.
+- Edit Settings, delete, modify security = Full Control GPO.
+```
+
+---
+# Câu 6
+
+![](Pasted%20image%2020250710193810.png)
+
+- Add roles and features -> DNS Server and Web Server (IIS).
+
+![](Pasted%20image%2020250710194002.png)
+
+- Vào role services -> Install.
+
+![](Pasted%20image%2020250710194147.png)
+
+- Tạo thư mục chia sẻ FTP:
+	- Đặt name - `FTPRoot` 
+- Mở **IIS Manager** (`inetmgr`).
+- Chuột phải `Sites` → `Add FTP Site…`
+    - Tên: `ftp.tên_miền_của_bạn` (VD: `ftp.khoacntt.edu.vn`)
+    - Physical Path: `D:\FTP_Root`
+- Cấu hình Binding:
+    - IP: `192.168.1.1`
+    - Port: `21`
+    - Enable: `Start FTP site automatically`
+    - **Tick:** “Allow SSL” → chọn `No SSL` (nếu không dùng SSL)
+    
+![](Pasted%20image%2020250710195944.png)
+
+![](Pasted%20image%2020250710200254.png)
+
+- Cài đặt authorization -> Finish:
+
+![](Pasted%20image%2020250710200506.png)
+
+- Đặt DNS cho FTP server:
+	- Mở **DNS Manager** trên DC.
+	- Chọn Forward Lookup Zones → Zone `khoacntt.edu.vn`.
+	- Tạo bản ghi mới:
+	    - `ftp` → A Record → trỏ về `192.168.1.2`
+	    
+![](Pasted%20image%2020250710202209.png)
+
+- **Test máy:**
+Yêu cầu đăng nhập:
+
+![](Pasted%20image%2020250710202520.png)
+
+Không tạo folder được:
+
+![](Pasted%20image%2020250710202405.png)
+
+---
