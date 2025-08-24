@@ -1,0 +1,1 @@
+- Active Directory Security: [Attack Defense & Detection – Active Directory Security](https://adsecurity.org/?page_id=4031)

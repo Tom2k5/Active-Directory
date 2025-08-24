@@ -141,7 +141,7 @@ Phân quyền sao cho chỉ các trưởng phòng có quyền chỉnh sửa GPO 
     - Tên: `ftp.tên_miền_của_bạn` (VD: `ftp.khoacntt.edu.vn`)
     - Physical Path: `D:\FTP_Root`
 - Cấu hình Binding:
-    - IP: `192.168.1.1`
+    - IP: `192.168.1.2` (theo IP DC)
     - Port: `21`
     - Enable: `Start FTP site automatically`
     - **Tick:** “Allow SSL” → chọn `No SSL` (nếu không dùng SSL)
